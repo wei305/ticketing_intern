@@ -1,0 +1,17 @@
+# ticket plus 遠大
+
+# ticket website info
+# AV: https://ticketplus.com.tw/activity/6ebe0af55a7db18ccea8aa21b250c8b1
+# ice band: https://ticketplus.com.tw/activity/1440f0d05d47b80e94e86b3e53b48519
+# one man show: https://ticketplus.com.tw/activity/e678490de1416cfbdbde6786a126af65
+# we are forever fan meeting: https://ticketplus.com.tw/activity/e50430024fdc0e064c085bfecaeafa6c
+default_page: 'https://ticketplus.com.tw/activity/25f857f80078892051bea39cdb3d98d4'
+ticket_count: 4
+priority_zone_index: 2
+
+# account info
+phone: '0910405753'
+country: 'Taiwan'
+country_index: 32 # 32 is for Taiwan
+password: 'Planit-2018'
+
