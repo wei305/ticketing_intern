@@ -21,7 +21,6 @@ class TixCraft:
         self.config = config
         self.driver = MyDriver()
         self.consent_is_closed = False
-        self.confirm_page_visited = False
 
     def setup_browser(self):
         self.driver.get(self.default_page)
@@ -131,14 +130,15 @@ class TixCraft:
             close_alert(self.driver)
 
         def handle_confirm():
-            if not self.confirm_page_visited:
-                self.confirm_page_visited = True
-                time.sleep(1)
+            time.sleep(1)
+
+        def handle_checkout():
+            time.sleep(1)
 
         self.driver.get(self.config.target_page)
         while True:
-            url = self.driver.current_url
             try:
+                url = self.driver.current_url
                 if '/activity/detail' in url:
                     self.driver.get(url.replace('detail', 'game'))
                 elif '/activity/game' in url:
@@ -149,6 +149,9 @@ class TixCraft:
                     handle_tickets()
                 elif '/ticket/order' in url:
                     handle_confirm()
+                elif '/ticket/checkout' in url:
+                    handle_checkout()
+
 
             except Exception as e:
                 print(traceback.format_exc())
