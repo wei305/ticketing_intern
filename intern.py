@@ -43,8 +43,10 @@ def one_time_facebook_login(config):
     app = TixCraft(config)
     app.setup_browser()
     app.login()
-    config.sid_cookie = app.fetch_sid()
-    app.close()
+    time.sleep(5)
+    # config.sid_cookie = app.fetch_sid()
+    # app.close()
+    app.execute()
 
 
 if __name__ == "__main__":

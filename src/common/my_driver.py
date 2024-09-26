@@ -26,7 +26,7 @@ class MyDriver(WebDriver):
     def __init__(self) -> None:
         super().__init__(options=_get_options())
 
-    def _find_elements(self, value) -> List[MyWebElement] | None:
+    def _find_elements(self, value):
         elements = self.find_elements(By.CSS_SELECTOR, value)
         if len(elements) > 0:
             wrapper_list = []
@@ -38,7 +38,7 @@ class MyDriver(WebDriver):
     def retry_find_elements(self, value, retries=-1) -> List[MyWebElement]:
         return retry(lambda: self._find_elements(value), retries)
 
-    def retry_find_element(self, value, retries=-1) -> MyWebElement | None:
+    def retry_find_element(self, value, retries=-1):
         web_element = retry(lambda: self.find_element(By.CSS_SELECTOR, value), retries)
         if web_element is not None:
             return MyWebElement(web_element)
