@@ -10,7 +10,6 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
 from src.common.alert_util import close_alert
-from src.common.audio_util import play_audio_async
 from src.common.my_driver import MyDriver
 from src.common.ocr_util import image_to_text
 
@@ -133,7 +132,6 @@ class TixCraft:
 
         def handle_confirm():
             if not self.confirm_page_visited:
-                play_audio_async()
                 self.confirm_page_visited = True
                 time.sleep(1)
 
