@@ -45,11 +45,19 @@ class TixCraft:
 
     def enter_captcha(self):
         selector = 'img#TicketForm_verifyCode-image'
-        result = image_to_text(self.driver, selector)
+        while True:
+            result = image_to_text(self.driver, selector)
+            logging.info(f'ocr: {result}')
+            # refresh the ocr if the length of result is wrong
+            if len(result) != 4:
+                captcha = self.driver.retry_find_element(selector)
+                captcha.click()
+                time.sleep(0.1)
+                continue
 
-        logging.info(f'ocr: {result}')
-        captcha_input = self.driver.retry_find_element('input#TicketForm_verifyCode')
-        captcha_input.send_keys(result)
+            captcha_input = self.driver.retry_find_element('input#TicketForm_verifyCode')
+            captcha_input.send_keys(result)
+            break
 
     def login(self):
         sign_in = self.driver.retry_find_element('a.justify-content-center')
