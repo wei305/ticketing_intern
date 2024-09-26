@@ -10,8 +10,13 @@ from src.tixcraft import TixCraft
 def main(config):
     app = TixCraft(config)
     app.setup_browser()
+    if config.sid_cookie:
+        app.set_cookie()
+    else:
+        app.login()
+        config.sid_cookie = app.fetch_sid()
     app.close_consent()
-    app.login()
+
     app.execute()
 
 
@@ -34,17 +39,26 @@ def build_config() -> TixcraftConfig:
     )
 
 
+def one_time_facebook_login(config):
+    app = TixCraft(config)
+    app.setup_browser()
+    app.login()
+    config.sid_cookie = app.fetch_sid()
+    app.close()
+
+
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.INFO)
     logging.info("Running against tixcraft...")
 
     config = build_config()
+    one_time_facebook_login(config)
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=config.num_of_interns) as executor:
         futures = []
         for i in range(config.num_of_interns):
             future = executor.submit(main, config)
             futures.append(future)
-            time.sleep(3)
 
         for future in concurrent.futures.as_completed(futures):
             future.result()

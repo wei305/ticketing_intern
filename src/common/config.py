@@ -26,3 +26,6 @@ class TixcraftConfig:
 
     # interns
     num_of_interns: int
+
+    # SID
+    sid_cookie: str = None
